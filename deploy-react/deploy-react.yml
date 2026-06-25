@@ -33,6 +33,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
-            cd /home/ubuntu/my-services
+            cd /home/ubuntu
             docker compose pull frontend
             docker compose up -d frontend
