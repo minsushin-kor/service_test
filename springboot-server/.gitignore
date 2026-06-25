@@ -1,0 +1,12 @@
+.env
+.env.*
+
+*.pem
+*.key
+
+build/
+out/
+
+.gradle/
+
+src/main/resources/application-secret.yml

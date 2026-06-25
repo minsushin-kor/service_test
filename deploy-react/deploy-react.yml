@@ -1,0 +1,38 @@
+name: React CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'react-frontend/**' # 이 폴더가 변경될 때만 실행
+
+jobs:
+  deploy-react:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 코드 가져오기
+        uses: actions/checkout@v3
+
+      - name: Docker Hub 로그인
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker 이미지 빌드 및 푸시
+        run: |
+          cd react-frontend
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/test:react .
+          docker push ${{ secrets.DOCKER_USERNAME }}/test:react
+
+      - name: EC2 서버 접속 및 컨테이너 재시작
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            export DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}
+            cd /home/ubuntu/my-services
+            docker compose pull frontend
+            docker compose up -d frontend

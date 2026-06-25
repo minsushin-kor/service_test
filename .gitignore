@@ -1,0 +1,51 @@
+# ==========================================
+# Iris 예측 프로젝트 통합 Git Ignore 설정
+# ==========================================
+
+# 1. React 프론트엔드 제외 항목
+react-frontend/node_modules/
+react-frontend/dist/
+react-frontend/build/
+react-frontend/.env.local
+react-frontend/.env.development.local
+react-frontend/.env.test.local
+react-frontend/.env.production.local
+
+# 2. Spring Boot 백엔드 제외 항목
+springboot-server/.gradle/
+springboot-server/build/
+springboot-server/out/
+springboot-server/bin/
+springboot-server/.idea/
+springboot-server/*.iml
+
+# 3. Python / FastAPI 제외 항목
+fastapi-server/__pycache__/
+fastapi-server/.pytest_cache/
+fastapi-server/.venv/
+fastapi-server/venv/
+fastapi-server/env/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# 4. 에디터 및 OS 시스템 파일
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+*.log
+
+# 5. 임시 및 대용량 압축 파일 제외
+*.zip
+*.tar.gz
+*.tgz
+*.rar
+**/temp_gradle/

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  # 1. React 프론트엔드 서비스
+  frontend:
+    build:
+      context: ./react-frontend
+      dockerfile: DockerFile       # 대소문자가 구분되는 리눅스 빌드 환경을 위해 파일명 명시
+    ports:
+      - "80:80"                   # 외부 브라우저 접속 포트 80을 내부 Nginx 포트 80과 연동
+    depends_on:
+      - backend-spring
+      - backend-fastapi
+    restart: always
+
+  # 2. Spring Boot 백엔드 서비스
+  backend-spring:
+    build:
+      context: ./springboot-server
+      dockerfile: DockerFile       # 대소문자가 구분되는 리눅스 빌드 환경을 위해 파일명 명시
+    ports:
+      - "8080:8080"               # 외부 React API 통신 포트 8080 연동
+    environment:
+      - FASTAPI_URL=http://backend-fastapi:8000  # 도커 가상 네트워크 내의 FastAPI 서비스 주소 주입
+    depends_on:
+      - backend-fastapi
+    restart: always
+
+  # 3. FastAPI AI 모델 서빙 서비스
+  backend-fastapi:
+    build:
+      context: ./fastapi-server    # 오타 수정 (fastapi-backend -> fastapi-server)
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"               # 로컬 테스트 및 API 직접 연동 포트 8000 연동
+    restart: always
