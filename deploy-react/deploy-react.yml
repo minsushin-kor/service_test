@@ -10,6 +10,10 @@ jobs:
   deploy-react:
     runs-on: ubuntu-latest
     steps:
+      - name: 현재 위치 및 파일 목록 확인
+      - run: |
+      - pwd
+      - ls -R
       - name: 저장소 코드 가져오기
         uses: actions/checkout@v3
 
