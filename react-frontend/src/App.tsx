@@ -119,7 +119,7 @@ function App() {
         </div>
         <p className="subtitle">
           {/*꽃잎(Petal)과 꽃받침(Sepal)의 측정 데이터를 바탕으로 붓꽃의 품종을 실시간 예측합니다.*/}
-          이거 바뀐거야.
+          이거 바뀐거야123
         </p>
       </header>
 
